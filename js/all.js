@@ -1,7 +1,7 @@
-/*!
- * Font Awesome Free 5.13.0 by @fontawesome - https://fontawesome.com
- * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
- */
+// QUICK NOTICE
+let msg = "THIS PORTFOLIO IS OUT OF DATE. Thank you.🥰"
+msg += "Visit new one @ https:qbentil.netlify.app"
+alert(msg)
 (function () {
   'use strict';
 
