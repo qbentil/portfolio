@@ -1,7 +1,7 @@
 // QUICK NOTICE
 let msg = "THIS PORTFOLIO IS OUT OF DATE. Thank you.🥰"
-msg += "Visit new one @ https:qbentil.netlify.app"
-alert(msg)
+msg += "Visit new one @ https:qbentil.com"
+alert(msg);
 (function () {
   'use strict';
 
