@@ -3,12 +3,378 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Bentil | Personal | Portfolio</title>
+		<title>Bentil Shadrack | Software Engineer</title>
 		<link rel="shortcut icon" href="favicon.ico">
 		<link rel="stylesheet" type="text/css" href="css/all.css" />
 		<link rel="stylesheet" type="text/css" href="css/all.min.css" />
 		<link rel="stylesheet" type="text/css" href="css/base.css" />
 		<link rel="stylesheet" type="text/css" href="css/demo1.css" />
+		<style>
+			/* Override jumpy animations */
+			.animate span {
+				animation: none !important;
+			}
+
+			/* Fix overlapping sections */
+			.content--switch {
+				position: relative !important;
+				height: auto !important;
+				min-height: 100vh;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				padding: 60px 30px;
+			}
+
+			.content--switch-current {
+				display: flex !important;
+			}
+
+			/* Professional styling */
+			.content__text {
+				line-height: 1.8;
+				font-size: 16px;
+				max-width: 900px;
+				width: 100%;
+				color: #fff;
+			}
+
+			.content__title {
+				text-align: center;
+				margin-bottom: 30px;
+				color: #fff;
+			}
+
+			/* Improve text readability across all sections */
+			.content--switch p,
+			.content--switch h2,
+			.content--switch h3,
+			.content--switch h4,
+			.content--switch strong,
+			.content--switch em,
+			.content--switch li {
+				color: #fff;
+			}
+
+			.content--switch a {
+				color: #4da6ff;
+				text-decoration: none;
+			}
+
+			.content--switch a:hover {
+				color: #66b3ff;
+				text-decoration: underline;
+			}
+
+			.tech-category {
+				margin-bottom: 25px;
+			}
+
+			.tech-category h4 {
+				font-weight: 600;
+				color: #45505b;
+				margin-bottom: 12px;
+				font-size: 18px;
+			}
+
+			.tech-tags {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 10px;
+			}
+
+			.tech-badge {
+				display: inline-block;
+				padding: 8px 16px;
+				background-color: #f0f0f0;
+				color: #45505b;
+				border-radius: 20px;
+				font-size: 14px;
+				font-weight: 500;
+				transition: all 0.3s ease;
+				border: 1px solid #e0e0e0;
+			}
+
+			.tech-badge:hover {
+				background-color: #0563bb;
+				color: #fff;
+				transform: translateY(-2px);
+				box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			}
+
+			.resume-section {
+				margin-bottom: 30px;
+			}
+
+			.resume-title {
+				font-size: 22px;
+				font-weight: 700;
+				margin-bottom: 15px;
+				color: #45505b;
+				border-bottom: 2px solid #0563bb;
+				padding-bottom: 8px;
+			}
+
+			.resume-item {
+				margin-bottom: 20px;
+				padding-bottom: 20px;
+				border-bottom: 1px solid #eee;
+			}
+
+			.resume-item:last-child {
+				border-bottom: none;
+			}
+
+			.resume-item h4 {
+				font-size: 18px;
+				font-weight: 600;
+				color: #0563bb;
+				margin-bottom: 5px;
+			}
+
+			.resume-item h5 {
+				font-size: 15px;
+				background: #e4edf9;
+				padding: 4px 12px;
+				display: inline-block;
+				font-weight: 600;
+				margin-bottom: 10px;
+			}
+
+			.resume-item ul {
+				list-style: disc;
+				padding-left: 20px;
+				margin-top: 10px;
+			}
+
+			.resume-item ul li {
+				margin-bottom: 8px;
+				line-height: 1.6;
+			}
+
+			.info-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+				gap: 15px;
+				margin-top: 20px;
+			}
+
+			.info-item {
+				display: flex;
+				align-items: center;
+				color: #fff;
+			}
+
+			.info-item i {
+				color: #4da6ff;
+				margin-right: 10px;
+				font-size: 18px;
+			}
+
+			.info-item strong {
+				margin-right: 8px;
+				color: #fff;
+			}
+
+			.info-item div {
+				color: #fff;
+			}
+
+			/* Responsive adjustments */
+			@media (max-width: 768px) {
+				.content--switch {
+					padding: 40px 20px;
+					min-height: auto;
+				}
+
+				.content__text {
+					font-size: 14px;
+				}
+
+				.content__title {
+					font-size: 2rem !important;
+				}
+
+				.tech-badge {
+					font-size: 12px;
+					padding: 6px 12px;
+				}
+
+				.resume-item h4 {
+					font-size: 16px;
+				}
+
+				.info-grid {
+					grid-template-columns: 1fr;
+				}
+			}
+
+			/* Smooth scrolling */
+			html {
+				scroll-behavior: smooth;
+			}
+
+			/* Hide non-current sections by default */
+			.content--switch {
+				display: none;
+			}
+
+			.content--switch-current {
+				display: flex !important;
+			}
+
+			/* Toast Notification Styles */
+			.portfolio-toast {
+				position: fixed;
+				top: 20px;
+				right: 20px;
+				z-index: 10000;
+				max-width: 400px;
+				animation: slideIn 0.3s ease-out;
+			}
+
+			.toast-content {
+				background: linear-gradient(135deg, #2c2f3f 0%, #1a1d29 100%);
+				color: white;
+				padding: 20px;
+				border-radius: 12px;
+				box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+				border: 1px solid rgba(255, 255, 255, 0.1);
+				display: flex;
+				align-items: flex-start;
+				gap: 15px;
+			}
+
+			.toast-icon {
+				font-size: 24px;
+				flex-shrink: 0;
+			}
+
+			.toast-message {
+				flex: 1;
+			}
+
+			.toast-message strong {
+				display: block;
+				font-size: 16px;
+				margin-bottom: 5px;
+				color: #fff;
+			}
+
+			.toast-message p {
+				margin: 0;
+				font-size: 14px;
+				line-height: 1.5;
+				color: rgba(255, 255, 255, 0.95);
+			}
+
+			.toast-message a {
+				color: #ffd700;
+				text-decoration: underline;
+				font-weight: 600;
+			}
+
+			.toast-message a:hover {
+				color: #ffed4e;
+			}
+
+			.toast-close {
+				background: rgba(255, 255, 255, 0.2);
+				border: none;
+				color: white;
+				font-size: 24px;
+				width: 30px;
+				height: 30px;
+				border-radius: 50%;
+				cursor: pointer;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				padding: 0;
+				line-height: 1;
+				transition: background 0.2s;
+				flex-shrink: 0;
+			}
+
+			.toast-close:hover {
+				background: rgba(255, 255, 255, 0.3);
+			}
+
+			.toast-fade-out {
+				animation: slideOut 0.3s ease-out forwards;
+			}
+
+			@keyframes slideIn {
+				from {
+					transform: translateX(400px);
+					opacity: 0;
+				}
+				to {
+					transform: translateX(0);
+					opacity: 1;
+				}
+			}
+
+			@keyframes slideOut {
+				from {
+					transform: translateX(0);
+					opacity: 1;
+				}
+				to {
+					transform: translateX(400px);
+					opacity: 0;
+				}
+			}
+
+			/* Mobile responsive toast */
+			@media (max-width: 768px) {
+				.portfolio-toast {
+					top: 10px;
+					right: 10px;
+					left: 10px;
+					max-width: none;
+				}
+
+				.toast-content {
+					padding: 15px;
+				}
+
+				.toast-icon {
+					font-size: 20px;
+				}
+
+				.toast-message strong {
+					font-size: 14px;
+				}
+
+				.toast-message p {
+					font-size: 13px;
+				}
+
+				@keyframes slideIn {
+					from {
+						transform: translateY(-100px);
+						opacity: 0;
+					}
+					to {
+						transform: translateY(0);
+						opacity: 1;
+					}
+				}
+
+				@keyframes slideOut {
+					from {
+						transform: translateY(0);
+						opacity: 1;
+					}
+					to {
+						transform: translateY(-100px);
+						opacity: 0;
+					}
+				}
+			}
+		</style>
 	</head>
 	<body class="demo-1">
 		<svg class="hidden">
@@ -26,120 +392,300 @@
 			<div class="content content--fixed">
 				<header class="codrops-header">
 					<div class="codrops-links">
-						<a class="codrops-icon codrops-icon--prev" href="index.html"><svg class="icon icon--arrow"><use xlink:href="#icon-arrow"></use></svg></a>
-						<a class="codrops-icon codrops-icon--drop " href=""><svg class="icon icon--drop"><use xlink:href="#icon-drop"></use></svg></a>
+						<a class="codrops-icon codrops-icon--prev" href="https://qbentil.com" target="_blank"><svg class="icon icon--arrow"><use xlink:href="#icon-arrow"></use></svg></a>
+						<a class="codrops-icon codrops-icon--drop" href="https://qbentil.com" target="_blank"><svg class="icon icon--drop"><use xlink:href="#icon-drop"></use></svg></a>
 					</div>
-					<h1 class="codrops-header__title">Quadjo Bentil</h1>
-					<span class="info">SITE OUT OF DATE. CHECK  <a href="https://qbentil.com">CURRENT PORTFOLIO</a></span>
+					<h1 class="codrops-header__title">Bentil Shadrack</h1>
+					<span class="info">Software Engineer @ <a href="https://uploader.io" target="_blank">Uploader.io</a> | World Bank Consultant</span>
 				</header>
 				<nav class="demos">
 					<div class="socials">
 						<div class="center">
 							<div class="icons first">
-							<li><a href="https://www.linkedin.com/in/bentil-shadrack-410422199"><span class="fab fa-linkedin-in"></span></a></li>
-							<li><a href="#"><span class="fab fa-stack-overflow"></span></a></li>
-							<li><a href="https://www.github.com/qbentil"><span class="fab fa-github"></span></a></li>
-							<li><a href="https://www.github.com/quadjo_bentil"><span class="fab fa-twitter"></span></a></li>
-							<li><a href="https://www.instagram.com/qbentil"><span class="fab fa-instagram"></span></a></li>
-							<li><a href="https://www.facebook.com/osei.shadrack.927"><span class="fab fa-facebook-f"></span></a></li>
-							<li><a href="https://wa.me/233556844331?text=Hello%20Bentil!%20I'm%20coming%20from%20your%20portfolio%20for%20site"><span class="fab fa-whatsapp"></span></a></li>
+								<li><a href="https://www.linkedin.com/in/bentil" target="_blank" title="LinkedIn"><span class="fab fa-linkedin-in"></span></a></li>
+								<li><a href="https://github.com/qbentil" target="_blank" title="GitHub"><span class="fab fa-github"></span></a></li>
+								<li><a href="https://twitter.com/quadjo_bentil" target="_blank" title="Twitter/X"><span class="fab fa-twitter"></span></a></li>
+							</div>
+							<div class="small text-center text-muted font-weight-bold">Copyright &copy; <script>document.write(new Date().getFullYear())</script> Bentil Shadrack. All Rights Reserved.</div>
 						</div>
-						<div class="small text-center text-muted font-weight-bold">Copyright &copy; <script>var x = new Date(); document.write(x.getFullYear())</script>  Bentilzone Web Services</div>
-						<!-- <div class="icons second">
-							<li><a href="#"><span class="fab fa-facebook-f"></span></a></li>
-							<li><a href="#"><span class="fab fa-twitter"></span></a></li>
-							<li><a href="#"><span class="fab fa-instagram"></span></a></li>
-							<li><a href="#"><span class="fab fa-linkedin-in"></span></a></li>
-							<li><a href="#"><span class="fab fa-github"></span></a></li>
-							<li><a href="#"><span class="fab fa-whatsapp"></span></a></li>
-							<li><a href="#"><span class="fab fa-google-plus-g"></span></a></li>
-						</div> -->
-					  </div>
-					  </div>
-					<!-- <a class="demo" href="index2.html">demo 2</a> -->
-					<!-- <a href="https://github.com/codrops/GridMenu" class="github">github</a> -->
+					</div>
 				</nav>
-				<button class="menu-trigger">+ info</button>
+				<button class="menu-trigger">+ menu</button>
 			</div>
+
+			<!-- Content Section 1: Home -->
 			<div id="content-1" class="content content--switch content--switch-current">
 				<h2 class="content__title">Bentil Shadrack</h2>
-				<div class="animate one">
-					<span>p</span><span>u</span><span>k</span><span>k</span><span>a</span>  &nbsp;<span>w</span><span>e</span><span>b</span>&nbsp;<span>s</span><span>e</span><span>r</span><span>v</span><span>i</span><span>c</span><span>e</span><span>s</span>
-				</div>
-				<div class="content__date">
-					<div class="animate two"><span>b</span><span>e</span><span>n</span><span>t</span><span>i</span><span>l</span><span>s</span><span>h</span><span>a</span><span>d</span><span>r</span><span>a</span><span>c</span><span>k</span><span>7</span><span>2</span><span>@</span><span>g</span><span>m</span><span>a</span><span>i</span><span>l</span><span>.</span><span>c</span><span>o</span><span>m</span>
-					</div>
-				</div>
-				<div class="content__date">
-					<div class="animate three"><span>+</span><span>2</span><span>3</span><span>3</span><span>5</span><span>5</span><span>6</span><span>8</span><span>4</span><span>4</span><span>3</span><span>3</span><span>1</span>
-					</div>
-				</div>
-				<div class="content__location">
-					<div class="animate four"><span>A</span><span>c</span><span>c</span><span>r</span><span>a</span><span>&#x2423 </span><span>G</span><span>h</span><span>a</span><span>n</span><span>a</span>
+				<div class="content__text">
+					<p style="font-size: 20px; font-weight: 600; margin-bottom: 15px;">
+						Fullstack Software Engineer
+					</p>
+					<p style="font-size: 16px; line-height: 1.8;">
+						World Bank Consultant | Software Engineer @ Uploader.io<br>
+						Specializing in React, TypeScript & AWS
+					</p>
+					<div class="info-grid" style="margin-top: 30px;">
+						<div class="info-item">
+							<i class="fas fa-map-marker-alt"></i>
+							<span>Accra, Ghana</span>
+						</div>
+						<div class="info-item">
+							<i class="fas fa-graduation-cap"></i>
+							<span>MSc Computer Science (In Progress)</span>
+						</div>
+						<div class="info-item">
+							<i class="fas fa-university"></i>
+							<span>University of Ghana</span>
+						</div>
 					</div>
 				</div>
 			</div>
+
+			<!-- Content Section 2: About -->
 			<div id="content-2" class="content content--switch">
 				<h2 class="content__title">About Me</h2>
 				<p class="content__text">
-					I’m a 20 years old Software Developer. I am highly motivated and very imaginative by finding inspirations in everyday things, pushing my own boundaries and allowing myself to think out of the box. Focused on usability and performance improvements. 
-					Good team player and always looking for opportunities to learn more. I am a fast learner as well and a very good team player. <br>
-					<b>SKILLS</b> <br>
-					<a href="#">Programming</a><br> html, CSS / bootstrap, javascript (ES6) ,jQuery ,PHP & MYSQL ,SQL Server  ,React JS ,Java         <br><a href="#">Design</a><br> Photoshop 
+					An accomplished Fullstack Software Engineer with a proven track record in building enterprise-scale applications and cloud infrastructure. Currently serving as a Software Engineer (STC) at The World Bank, providing critical software engineering expertise for global development initiatives.
+				</p>
+				<p class="content__text">
+					Specializes in architecting scalable web applications using React, TypeScript, Next.js, Node.js, and AWS cloud technologies. Has delivered high-impact solutions for international organizations including The World Bank, Uploader Pty, Accede, and Polymorph Labs, with expertise in AI-powered platforms, multi-tenant SaaS architectures, and enterprise-level systems.
+				</p>
+				<p class="content__text">
+					Passionate about leveraging technology to solve complex problems and drive innovation in global development. Currently pursuing MSc in Computer Science at the University of Ghana while working on cutting-edge software solutions for global organizations.
 				</p>
 			</div>
-			<div id="content-3" class="content content--switch">
-				<h2 class="content__title">Projects</h2>
-				<p class="content__text">
-					<b>Covid-19 Risk Scanner App</b><br><br>
-					Web app built with Html, CSS, and JavaScript that
-					tells the risk at which one stands and getting the
-					corona virus for my school, NIIT Ghana, Accra-RingRoad, Circle. <a href="https://qnx4lruu2rigdzykawrola-on.drv.tw/www.niitghanaCovid.com/">check App</a><br><br>
-					<b>Project recording App</b><br><br>
-					Web App built with Html, CSS, and JavaScript to keep records or list the schedules in a day.  <a href="http://qbentil.github.io">Check App</a> <br><br>
-					<b>Bentil WordBeater App</b><br><br>
-					Web game built with Html, CSS, and JavaScript to improve typing speed  <a href="http://pukkawordbeater.netlify.app">Check App</a> <br><br>
-					<b>{CoDERS} QUIZ</b><br><br>
-					Web App for developers to test their knowledge on Programming languages learnt  <a href="http://codersquiz.netlify.app">Check App</a> 
-					<br>
-					more snippets on my profile at <a href="https://sololearn.com">Sololearn[qbentil]</a> and <a href="https://codepen.io">Codepen[qbentil]</a>
-				</p>
-			</div>
-			<!-- <div id="content-4" class="content content--switch">
-				<h2 class="content__title">Advertisement</h2>
-				<p class="content__text">
-					Link up to advertise products here as well as my social platforms
-				</p>
-			</div> -->
-			<div id="content-5" class="content content--switch">
-				<h2 class="content__title">Hire Me</h2>
-				<p class="content__text">
-					Are you looking for a web application developer? a website designer?
-					Do you need someone to manage your web application or website? Then am here to serve you.
-					Why not give me a call for bussiness now. <br>
-					Send me a mail <a href="mailto: bentilshadrack72@gmail.com">Email <i class="far fa-envelope-open"></i></a> <br> Call me on <a href="tel:+233556844331">Phone <i class="fas fa-phone-volume"></i></a>
-				</p>
-			</div>
-			<div id="content-6" class="content content--switch">
-				<h2 class="content__title">Portfolio</h2>
-				<div class="team">
-					<div class="wrapper">
-						<a href="#">
-							<img src="./img/bentil.jpeg" alt="">
-						</a>
-						<div class="title">Bentil Shadrack</div>
-						<div class="place">Sofware Engineer <br>
-							Web Applications Developer <br> Java Lover || PHP Alumni
-							<div class="btns">
-								<a href="tel: 0556844331" class="btn btn-primary">Hire Me</a> ||
-								<a href="./img/my-resume.pdf" class="btn btn-primary"><i class="fa fa-download"></i> Resume</a>
-							</div>
-						</div>
 
+			<!-- Content Section 3: Tech Stack -->
+			<div id="content-3" class="content content--switch">
+				<h2 class="content__title">Tech Stack</h2>
+				<div class="content__text">
+					<div class="tech-category">
+						<h4>Frontend</h4>
+						<div class="tech-tags">
+							<span class="tech-badge">React</span>
+							<span class="tech-badge">Next.js</span>
+							<span class="tech-badge">TypeScript</span>
+							<span class="tech-badge">JavaScript</span>
+							<span class="tech-badge">React Native</span>
+							<span class="tech-badge">HTML5</span>
+							<span class="tech-badge">CSS3</span>
+							<span class="tech-badge">Tailwind CSS</span>
+						</div>
+					</div>
+
+					<div class="tech-category">
+						<h4>Backend</h4>
+						<div class="tech-tags">
+							<span class="tech-badge">Node.js</span>
+							<span class="tech-badge">Express.js</span>
+							<span class="tech-badge">NestJS</span>
+							<span class="tech-badge">Python</span>
+							<span class="tech-badge">FastAPI</span>
+							<span class="tech-badge">PHP</span>
+							<span class="tech-badge">RESTful APIs</span>
+							<span class="tech-badge">GraphQL</span>
+						</div>
+					</div>
+
+					<div class="tech-category">
+						<h4>Cloud & DevOps</h4>
+						<div class="tech-tags">
+							<span class="tech-badge">AWS</span>
+							<span class="tech-badge">Docker</span>
+							<span class="tech-badge">Kubernetes</span>
+							<span class="tech-badge">CI/CD</span>
+							<span class="tech-badge">GitHub Actions</span>
+							<span class="tech-badge">Terraform</span>
+							<span class="tech-badge">Linux</span>
+						</div>
+					</div>
+
+					<div class="tech-category">
+						<h4>Database</h4>
+						<div class="tech-tags">
+							<span class="tech-badge">PostgreSQL</span>
+							<span class="tech-badge">MongoDB</span>
+							<span class="tech-badge">MySQL</span>
+							<span class="tech-badge">Redis</span>
+							<span class="tech-badge">DynamoDB</span>
+							<span class="tech-badge">Prisma</span>
+						</div>
+					</div>
+
+					<div class="tech-category">
+						<h4>Tools & Others</h4>
+						<div class="tech-tags">
+							<span class="tech-badge">Git</span>
+							<span class="tech-badge">VS Code</span>
+							<span class="tech-badge">Postman</span>
+							<span class="tech-badge">Jira</span>
+							<span class="tech-badge">Figma</span>
+							<span class="tech-badge">Webpack</span>
+							<span class="tech-badge">Jest</span>
+							<span class="tech-badge">Cypress</span>
+						</div>
 					</div>
 				</div>
-				<!-- <p class="content__text">Amplifying below the fold in order to think outside the box. Leveraging innovation and above all, build ROI. Synchronise responsive websites but disrupt the balance. Synchronise innovation to, consequently, funnel users. Create above the fold in order to be on brand. Amplify awareness with a goal to infiltrate new markets.</p> -->
 			</div>
+
+			<!-- Content Section 4: Resume -->
+			<div id="content-4" class="content content--switch">
+				<h2 class="content__title">Resume</h2>
+				<div class="content__text">
+					<div class="resume-section">
+						<h3 class="resume-title">Professional Experience</h3>
+
+						<div class="resume-item">
+							<h4>Software Engineer (STC)</h4>
+							<h5>December 2024 - Present</h5>
+							<p><em>The World Bank, Remote</em></p>
+							<ul>
+								<li>Providing software engineering expertise for global development initiatives</li>
+								<li>Building scalable solutions for international development projects</li>
+								<li>Collaborating with cross-functional teams on enterprise applications</li>
+							</ul>
+						</div>
+
+						<div class="resume-item">
+							<h4>Software Engineer</h4>
+							<h5>March 2024 - Present</h5>
+							<p><em>Uploader Pty, Remote</em></p>
+							<ul>
+								<li>Developed and maintained enterprise-level web applications using React, TypeScript, and Next.js</li>
+								<li>Architected and implemented scalable backend services with Node.js and AWS</li>
+								<li>Led the migration of legacy systems to modern cloud-native architectures</li>
+							</ul>
+						</div>
+
+						<div class="resume-item">
+							<h4>Fullstack Developer</h4>
+							<h5>December 2023 - Present</h5>
+							<p><em>Accede, Accra, Ghana</em></p>
+							<ul>
+								<li>Built multi-tenant SaaS platforms serving enterprise clients</li>
+								<li>Implemented real-time features using WebSockets and serverless architecture</li>
+								<li>Optimized application performance resulting in 40% faster load times</li>
+							</ul>
+						</div>
+
+						<div class="resume-item">
+							<h4>Software Engineer</h4>
+							<h5>November 2023 - March 2024</h5>
+							<p><em>Polymorph Labs, Accra, Ghana</em></p>
+							<ul>
+								<li>Developed AI-powered web applications using React and Python</li>
+								<li>Integrated machine learning models with web interfaces</li>
+								<li>Collaborated with data scientists to deploy ML solutions</li>
+							</ul>
+						</div>
+
+						<div class="resume-item">
+							<h4>Software Engineer (Intern)</h4>
+							<h5>June 2023 - October 2023</h5>
+							<p><em>Documatic, Remote</em></p>
+							<ul>
+								<li>Built documentation automation tools using React and TypeScript</li>
+								<li>Implemented CI/CD pipelines for automated deployments</li>
+								<li>Contributed to open-source projects and internal tools</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="resume-section">
+						<h3 class="resume-title">Education</h3>
+
+						<div class="resume-item">
+							<h4>MSc. Computer Science</h4>
+							<h5>September 2025 - October 2026 (In Progress)</h5>
+							<p><em>University of Ghana, Accra, Legon</em></p>
+						</div>
+
+						<div class="resume-item">
+							<h4>BSc. Computer Science</h4>
+							<h5>2021 - 2024</h5>
+							<p><em>University of Ghana, Accra, Legon</em></p>
+						</div>
+
+						<div class="resume-item">
+							<h4>West Africa Senior School Certificate Examination</h4>
+							<h5>2017 - 2020</h5>
+							<p><em>Ghana Senior High School, Tamale, Northern Region</em></p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Content Section 5: Blog -->
+			<div id="content-5" class="content content--switch">
+				<h2 class="content__title">Blog</h2>
+				<p class="content__text">
+					<b>Building Scalable Web Applications with Next.js and AWS</b><br>
+					<em style="color: #666;">December 2024</em><br><br>
+					Exploring best practices for building enterprise-scale applications using Next.js, TypeScript, and AWS services. Learn how to architect robust, scalable solutions that can handle millions of users.<br><br>
+					<a href="https://qbentil.com" target="_blank" style="color: #0563bb; font-weight: 600;">Read more →</a>
+				</p>
+				<br>
+				<p class="content__text">
+					<b>TypeScript Best Practices for Large-Scale Applications</b><br>
+					<em style="color: #666;">November 2024</em><br><br>
+					Learn how to leverage TypeScript's type system to build maintainable and scalable applications. Discover advanced patterns and techniques used in enterprise software development.<br><br>
+					<a href="https://qbentil.com" target="_blank" style="color: #0563bb; font-weight: 600;">Read more →</a>
+				</p>
+				<br>
+				<p class="content__text">
+					<b>Microservices Architecture with Node.js</b><br>
+					<em style="color: #666;">October 2024</em><br><br>
+					A comprehensive guide to designing and implementing microservices using Node.js and Docker. Explore patterns for building distributed systems that scale.<br><br>
+					<a href="https://qbentil.com" target="_blank" style="color: #0563bb; font-weight: 600;">Read more →</a>
+				</p>
+				<br><br>
+				<p class="content__text">
+					<a href="https://qbentil.com" target="_blank" style="color: #0563bb; font-weight: 600; font-size: 18px;">View All Articles →</a>
+				</p>
+			</div>
+
+			<!-- Content Section 6: Contact -->
+			<div id="content-6" class="content content--switch">
+				<h2 class="content__title">Contact</h2>
+				<div class="content__text">
+					<p style="font-size: 18px; margin-bottom: 30px; color: #fff;">
+						Let's connect! Reach out to me through any of the following channels:
+					</p>
+
+					<div class="info-grid">
+						<div class="info-item">
+							<i class="fas fa-map-marker-alt"></i>
+							<div>
+								<strong>Location:</strong><br>
+								Accra, Ghana
+							</div>
+						</div>
+						<div class="info-item">
+							<i class="fab fa-linkedin"></i>
+							<div>
+								<strong>LinkedIn:</strong><br>
+								<a href="https://www.linkedin.com/in/bentil" target="_blank" style="color: #4da6ff;">Connect with me</a>
+							</div>
+						</div>
+						<div class="info-item">
+							<i class="fab fa-github"></i>
+							<div>
+								<strong>GitHub:</strong><br>
+								<a href="https://github.com/qbentil" target="_blank" style="color: #4da6ff;">@qbentil</a>
+							</div>
+						</div>
+					</div>
+
+					<div style="margin-top: 40px; padding: 20px; background: rgba(255, 255, 255, 0.1); border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.2);">
+						<p style="margin: 0; text-align: center; font-size: 16px; color: #fff;">
+							<i class="fas fa-briefcase" style="color: #4da6ff; margin-right: 8px;"></i>
+							<strong>Open to opportunities</strong> in software engineering, consulting, and technical leadership roles.
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<!-- Grid Menu Navigation -->
 			<nav class="grim">
 				<div class="grim__item">
 					<div class="grim__item-bg grim__item-bg--1"></div>
@@ -162,7 +708,7 @@
 					<div class="grim__item-bg grim__item-bg--5"></div>
 					<a href="#content-1" class="grim__link grim__item-content">
 						<div class="grim__item-inner">
-							<h3 class="grim__item-title">home</h3>
+							<h3 class="grim__item-title">Home</h3>
 						</div>
 					</a>
 				</div>
@@ -170,9 +716,8 @@
 					<div class="grim__item-bg grim__item-bg--6"></div>
 					<a href="#content-2" class="grim__link grim__item-content">
 						<div class="grim__item-inner">
-							<!-- <button class="menu-trigger menu-trigger--close">- close</button> -->
-							<h3 class="grim__item-title">Ads</h3>
-							<span class="grim__item-desc">Advertise here!.</span>
+							<h3 class="grim__item-title">About</h3>
+							<span class="grim__item-desc">Learn more about my background and expertise</span>
 						</div>
 					</a>
 				</div>
@@ -180,26 +725,26 @@
 					<div class="grim__item-bg grim__item-bg--7"></div>
 					<a href="#content-3" class="grim__link grim__item-content">
 						<div class="grim__item-inner">
-							<h3 class="grim__item-title">Projects</h3>
-							<span class="grim__item-desc">Find out stuffs I have been working on</span>
+							<h3 class="grim__item-title">Tech Stack</h3>
+							<span class="grim__item-desc">Technologies I use to build solutions</span>
 						</div>
 					</a>
 				</div>
 				<div class="grim__item">
 					<div class="grim__item-bg grim__item-bg--8"></div>
-					<a href="#content-5" class="grim__link grim__item-content">
+					<a href="#content-4" class="grim__link grim__item-content">
 						<div class="grim__item-inner">
-							<h3 class="grim__item-title">Hire me</h3>
-							<span class="grim__item-desc">You need my service? reach out to me.</span>
+							<h3 class="grim__item-title">Resume</h3>
+							<span class="grim__item-desc">Professional experience and education</span>
 						</div>
 					</a>
 				</div>
 				<div class="grim__item">
 					<div class="grim__item-bg grim__item-bg--9"></div>
-					<a href="#content-4" class="grim__link grim__item-content">
+					<a href="#content-5" class="grim__link grim__item-content">
 						<div class="grim__item-inner">
-							<h3 class="grim__item-title">About Me</h3>
-							<span class="grim__item-desc">You can check me out here.</span>
+							<h3 class="grim__item-title">Blog</h3>
+							<span class="grim__item-desc">Technical articles and insights</span>
 						</div>
 					</a>
 				</div>
@@ -207,8 +752,8 @@
 					<div class="grim__item-bg grim__item-bg--10" data-duration="1000" data-easing="easeOutQuint"></div>
 					<a href="#content-6" class="grim__link grim__item-content">
 						<div class="grim__item-inner">
-							<h3 class="grim__item-title">Portfolio</h3>
-							<span class="grim__item-desc">Get to know me more</span>
+							<h3 class="grim__item-title">Contact</h3>
+							<span class="grim__item-desc">Let's connect and collaborate</span>
 						</div>
 					</a>
 				</div>

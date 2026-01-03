@@ -1,7 +1,30 @@
-// QUICK NOTICE
-let msg = "THIS PORTFOLIO IS OUT OF DATE. Thank you.🥰"
-msg += "Visit new one @ https:qbentil.com"
-alert(msg);
+// QUICK NOTICE - Toast notification
+(function() {
+  // Create toast element
+  const toast = document.createElement('div');
+  toast.className = 'portfolio-toast';
+  toast.innerHTML = `
+    <div class="toast-content">
+      <span class="toast-icon">ℹ️</span>
+      <div class="toast-message">
+        <strong>Portfolio Update</strong>
+        <p>This portfolio is out of date. Visit my new one at <a href="https://qbentil.vercel.app" target="_blank">qbentil.me</a></p>
+      </div>
+      <button class="toast-close" onclick="this.parentElement.parentElement.remove()">×</button>
+    </div>
+  `;
+
+  // Add to page
+  document.body.appendChild(toast);
+
+  // Auto close after 60 seconds
+  setTimeout(() => {
+    if (toast.parentElement) {
+      toast.classList.add('toast-fade-out');
+      setTimeout(() => toast.remove(), 300);
+    }
+  }, 60000);
+})();
 (function () {
   'use strict';
 
